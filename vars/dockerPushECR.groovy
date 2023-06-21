@@ -3,9 +3,8 @@ def call(Map creds) {
         // aws ecr get-login-password --region ${creds.region} | docker login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com
         // docker push ${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com/${creds.private_repo_name}/${creds.project_name}:latest
         sh """
-        docker login -u AWS -p $(aws ecr get-login-password --region ${creds.region}) ${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com
-
-        
+        aws ecr get-login-password --region ${creds.region} | docker login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com
+        docker push ${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com/${creds.private_repo_name}/${creds.project_name}:latest
 
         """
     }
