@@ -15,6 +15,7 @@
 
 def call(Map creds) {
     withCredentials([string(credentialsId: 'aws_account_id', variable: 'aws_account_id')]) {
+        // helm push helm-test-chart-$HELM_CHART_VERSION.tgz oci://${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com/
         sh """
         helm package some-package
 
@@ -23,7 +24,7 @@ def call(Map creds) {
         
         HELM_CHART_VERSION=$(helm inspect chart . | grep version: | awk '{print $2}')
         
-        helm push helm-test-chart-$HELM_CHART_VERSION.tgz oci://${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com/
+        
         """
     }
 }
