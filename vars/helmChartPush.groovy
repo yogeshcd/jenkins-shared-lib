@@ -3,6 +3,7 @@ def call(Map creds) {
         // some block
             sh """
             helm package ${creds.package_name}
+            aws ecr get-login-password --region ${creds.region} | helm registry login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com
             """
     }
 }
