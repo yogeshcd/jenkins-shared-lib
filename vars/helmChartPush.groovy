@@ -8,7 +8,7 @@ def call(Map creds) {
             helm package ${creds.helm_chart_name}
             aws ecr get-login-password --region ${creds.region} | helm registry login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com
             
-            helm push ${creds.helm_chart_name}-$HELM_CHART_VERSION.tgz oci://${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com/
+            helm push ${creds.helm_chart_name}-$HELM_CHART_VERSION\.tgz oci://${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com/
             """
 
 
