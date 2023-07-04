@@ -4,7 +4,7 @@ def call(Map creds) {
             sh """
             helm package ${creds.helm_chart_name}
 
-            aws ecr get-login-password --region us-east-1 | helm registry login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.us-east-1.amazonaws.com
+            aws ecr get-login-password --region us-east-1 | helm registry login --username AWS --password-stdin someid.dkr.ecr.us-east-1.amazonaws.com
 
             
             HELM_CHART_VERSION=$(helm inspect chart . | grep version: | awk '{print $2}')
