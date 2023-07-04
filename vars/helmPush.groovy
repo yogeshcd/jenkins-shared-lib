@@ -8,7 +8,9 @@ def call(Map creds) {
             --region ${creds.region} | helm registry login \
             --username AWS \
             --password-stdin ${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com
+            
             HELM_CHART_VERSION=$(helm inspect chart . | grep version: | awk '{print $2}')
+            
             helm push helm-test-chart-$HELM_CHART_VERSION.tgz oci://${aws_account_id}.dkr.ecr.${creds.region}.amazonaws.com/
             """
     }
